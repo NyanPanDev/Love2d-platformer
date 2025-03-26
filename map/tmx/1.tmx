@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="25" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="10">
+ <editorsettings>
+  <export target="../1.lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" name="Tiles" tilewidth="16" tileheight="16" tilecount="625" columns="25">
+  <image source="../../resources/world/Tiles.png" width="400" height="400"/>
+ </tileset>
+ <layer id="1" name="ground" width="25" height="15">
+  <data encoding="csv">
+0,0,86,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,87,0,0,0,
+0,0,111,112,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,111,112,0,0,0,
+0,0,136,137,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,137,0,0,0,
+0,10,11,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,11,12,0,0,0,
+0,35,36,37,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,35,36,37,0,0,0,
+60,60,61,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,61,62,0,0,0,
+85,85,86,87,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,86,87,0,0,0,
+0,0,111,112,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,111,112,113,13,63,
+0,0,136,137,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,136,137,138,38,88,
+0,0,161,162,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,161,162,0,0,0,
+0,0,186,187,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,186,187,0,0,0,
+0,0,211,212,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,211,212,0,0,0,
+0,0,236,237,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,236,237,0,0,0,
+27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,28,29,
+52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52,52
+</data>
+ </layer>
+ <objectgroup color="#005500" id="2" name="solid">
+  <object id="8" x="1.5" y="209" width="397.5" height="22.5">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="9" x="0" y="0" width="7" height="208.5">
+   <properties>
+    <property name="collidable" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
