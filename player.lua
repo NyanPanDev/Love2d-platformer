@@ -68,6 +68,11 @@ function Player:loadAssets()
     for i=1, self.animation.jump.total do
        self.animation.jump.img[i] = love.graphics.newImage("resources/player/jump/jump"..i..".png")
     end
+
+    self.animation.attack = {total = 11, current = 1, img = {}}
+    for i=1, self.animation.attack.total do
+      self.animation.attack.img[i] = love.graphics.newImage("resources/player/attack/melee_char"..i..".png")
+   end
  
     self.animation.draw = self.animation.idle.img[1]
     self.animation.width = self.animation.draw:getWidth()
