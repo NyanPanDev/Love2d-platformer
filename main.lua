@@ -1,8 +1,11 @@
+--Gamestate = require("sti/plugins/hump.gamestate")
 love.graphics.setDefaultFilter("nearest", "nearest")
 local Player = require("player")
 local Camera = require("camera")
 local Map = require("map")
 local Music = {}
+local Menu = require("menu")
+
 
 function love.load()
     Map:load()
@@ -34,7 +37,17 @@ function love.draw()
 end
 
 function love.keypressed(key)
-	Player:jump(key)
+    if key == "w" or key == "up" then
+	    Player:jump(key)
+    elseif key == "z" or key == "j" then
+        Player:attack(key)
+    end
+end
+
+function love.keyreleased(key)
+    if key == "a" or key == "left" or key == "d" or key == "right" then
+        Player:stopAnimation(true)
+    end
 end
 
 function beginContact(a, b, collision)

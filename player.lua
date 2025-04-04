@@ -31,8 +31,9 @@ function Player:load()
 
     self.alive = true
     self.grounded = false
+    self.attacking = false
     self.hasDoubleJump = false
-
+    self.idle = true
     self.direction = "right"
     self.state = "idle"
 
@@ -52,7 +53,7 @@ function Player:load()
 end
 
 function Player:loadAssets()
-    self.animation = {timer = 0, rate = 0.1}
+    self.animation = {timer = 0, rate = 0.07}
  
     self.animation.run = {total = 8, current = 1, img = {}}
     for i=1, self.animation.run.total do
@@ -69,9 +70,9 @@ function Player:loadAssets()
        self.animation.jump.img[i] = love.graphics.newImage("resources/player/jump/jump"..i..".png")
     end
 
-    self.animation.attack = {total = 11, current = 1, img = {}}
+    self.animation.attack = {total = 8, current = 1, img = {}}
     for i=1, self.animation.attack.total do
-      self.animation.attack.img[i] = love.graphics.newImage("resources/player/attack/melee_char"..i..".png")
+      self.animation.attack.img[i] = love.graphics.newImage("resources/player/attack/slam"..i..".png")
    end
  
     self.animation.draw = self.animation.idle.img[1]
@@ -141,17 +142,21 @@ function Player:loadAssets()
          Sounds.jump:play()
          Play = false
        end
-
        Sounds.run:pause()
     elseif self.xVel == 0 then
-       self.state = "idle"
-       Sounds.run:pause()
-       Play = true
+      if self.attacking and not self.idle then
+         self.state = "attack"
+      elseif self.idle then
+         self.state = "idle"
+         Sounds.run:pause()
+         Play = true
+      end
     else
-       self.state = "run"
-       Sounds.run:play()
-       Play = true
+      self.state = "run"
+      Sounds.run:play()
+      Play = true
     end
+    print (self.state)
  end
 
  function Player:setDirection()
@@ -166,7 +171,12 @@ function Player:loadAssets()
     self.animation.timer = self.animation.timer + dt
     if self.animation.timer > self.animation.rate then
        self.animation.timer = 0
-       self:setNewFrame()
+       if self.state == "attack" then
+         self:setAttackFrame()
+         self.state = "idle"
+       else
+         self:setNewFrame()
+       end
     end
  end
 
@@ -178,7 +188,27 @@ function Player:loadAssets()
        anim.current = 1
     end
     self.animation.draw = anim.img[anim.current]
+    if anim.current == anim.total then
+      self.idle = true
+   end
  end
+
+function Player:setAttackFrame()
+   local anim = self.animation[self.state]
+   if anim.current < anim.total then
+      anim.current = anim.current + 1
+   else
+      anim.current = 1
+   end
+   self.animation.draw = anim.img[anim.current]
+   if anim.current == anim.total then
+      self.idle = true
+   end
+   if love.keyboard.isDown("z") then
+      print ("I am here")
+      anim.current = 1
+   end
+end
 
  function Player:decreaseGraceTime(dt)
     if not self.grounded then
@@ -188,20 +218,24 @@ function Player:loadAssets()
  
  function Player:applyGravity(dt)
     if not self.grounded then
-       self.yVel = self.yVel + self.gravity * dt
+      self.yVel = self.yVel + self.gravity * dt
     end
  end
  
  function Player:move(dt)
     if love.keyboard.isDown("d", "right") then
-       self.xVel = math.min(self.xVel + self.acceleration * dt, self.maxSpeed)
-      --  Sounds.run:play()
+      self.xVel = math.min(self.xVel + self.acceleration * dt, self.maxSpeed)
+      self.attacking = false
     elseif love.keyboard.isDown("a", "left") then
-       self.xVel = math.max(self.xVel - self.acceleration * dt, -self.maxSpeed)
-      --  Sounds.run:play()
+      self.xVel = math.max(self.xVel - self.acceleration * dt, -self.maxSpeed)
+      self.attacking = false
     else
        self:applyFriction(dt)
     end
+ end
+
+ function Player:stopAnimation(bool)
+   self.idle = bool
  end
  
  function Player:applyFriction(dt)
@@ -255,6 +289,15 @@ function Player:loadAssets()
        end
     end
  end
+
+ function Player:attack(key)
+   if (key == "z" or key == "j") then
+      if self.grounded then
+         self.attacking = true
+         self.idle = false
+      end
+   end
+end
  
  function Player:endContact(a, b, collision)
     if a == self.physics.fixture or b == self.physics.fixture then

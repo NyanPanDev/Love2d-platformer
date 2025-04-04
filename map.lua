@@ -16,13 +16,10 @@ function Map:load()
     self.level:box2d_init(World)
     self.solidLayer = self.level.layers.solid
     self.groundLayer = self.level.layers.ground
-    -- self.entityLayer = self.level.layers.entity
+
  
     self.solidLayer.visible = false
-    -- self.entityLayer.visible = false
     MapWidth = self.groundLayer.width * 16
- 
-    -- self:spawnEntities()
  end
 
  function Map:next()

@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.title = "Test Title"
+    t.title = "Platformer Test"
     t.author = "NyanPanDev"
     t.version = "11.3"
     t.window.width = 640
