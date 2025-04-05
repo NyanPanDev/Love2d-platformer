@@ -7,5 +7,18 @@ function love.conf(t)
     t.audio.mic = false
     t.audio.mixwithsystem = true
     t.window.vsync = 0
-    t.console = true
+    t.console = false
+    t.release = false
+    t.window.fullscreen = false
+    t.window.vsync = true
+    t.window.fsaa = 0
+    t.modules.audio = true
+    t.modules.keyboard = true
+    t.modules.joystick = true
+    t.modules.event = true
+    t.modules.image = true
+    t.modules.timer = true
+    t.modules.graphics = true
+    t.modules.sound = true
+    t.modules.physics = true
 end

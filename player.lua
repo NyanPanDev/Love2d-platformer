@@ -156,7 +156,6 @@ function Player:loadAssets()
       Sounds.run:play()
       Play = true
     end
-    print (self.state)
  end
 
  function Player:setDirection()
@@ -205,7 +204,6 @@ function Player:setAttackFrame()
       self.idle = true
    end
    if love.keyboard.isDown("z") then
-      print ("I am here")
       anim.current = 1
    end
 end
